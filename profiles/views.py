@@ -17,7 +17,8 @@ def account(request):
         form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
             new_post = form.save(commit=False)
-            new_post.author = request.user
+            now_user = Profile.objects.get(user=request.user)
+            new_post.author = now_user
             new_post.save()
             return HttpResponseRedirect('/profile/account')
     context = {'form': form, 'posts':posts }
