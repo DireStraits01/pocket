@@ -27,8 +27,8 @@ def account(request):
 def profile_detail(request, pk):
     profile = Profile.objects.get(id=pk)
     posts = profile.author.all()
-    p_comments = Article.objects.get(id=pk)
-    comments = p_comments.comments.all()
+   
+   
     form = CommentForm()
     if request.method == 'POST':
         form = CommentForm(request.POST, request.FILES)
@@ -39,7 +39,7 @@ def profile_detail(request, pk):
             new_comment.save()
             return HttpResponseRedirect(f'/profile/profile_detail/{pk}')
 
-    context = {'profile':profile, 'posts':posts, 'form': form, 'comments':comments}
+    context = {'profile':profile, 'posts':posts, 'form': form}
     return render(request, 'profiles/profile_detail.html', context)        
 
 
