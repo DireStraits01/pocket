@@ -1,0 +1,75 @@
+{% extends 'base/base.html' %} {%block content %}
+
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-3">
+      <div class="card bg-image hover-overlay ripple">
+        <img
+          src="{{user.profile.avatar.url}}"
+          class="img-fluid"
+          width="350px"
+        />
+        <form method="" enctype="multipart/form-data">
+          {% csrf_token %} {{ form2 }}
+          <button class="btn btn-sm btn-primary" type="submit">
+            Change avatar
+          </button>
+        </form>
+        <div class="card-body">
+          <h5 class="card-title">{{user.username}}</h5>
+          <p class="card-text">
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </p>
+          <a href="{% url 'logout' %}" class="btn btn-primary">logout</a>
+          <a href="#!" class="btn btn-primary">Button</a>
+        </div>
+      </div>
+    </div>
+    <!--    content side         -->
+
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="feed-title m-2 p-2">
+            <h1>My posts</h1>
+          </div>
+          <div class="feed-section">
+            {% for post in posts %}
+            <div class="row">
+              <div class="col-3 d-flex align-items-end flex-column">
+                <div class="posts-author-pic">
+                  <img
+                    src="{{user.profile.avatar.url}}"
+                    height="60px"
+                    alt="Profile picture"
+                    class="rounded"
+                  />
+                </div>
+              </div>
+              <div class="col-9">
+                <div class="posts border m-2 p-2">
+                  {{post.body|safe }}
+                  <div class="post-button-section d-flex justify-content-end">
+                    <span> Delete</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {% endfor %}
+          </div>
+
+          <div class="editor-section">
+            <form action="" method="POST">
+              {% csrf_token %} {{form.media}} {{form.as_p}}
+              <p><button class="btn btn-success" type="submit">send</button></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

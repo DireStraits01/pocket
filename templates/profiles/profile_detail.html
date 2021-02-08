@@ -1,0 +1,76 @@
+{% extends 'base/base.html' %} {%block content %}
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-3">
+      <div class="card bg-image hover-overlay ripple">
+        <img src="{{profile.avatar.url}}" class="img-fluid" width="350px" />
+        <p>Change avatar</p>
+        <div class="card-body">
+          <h5 class="card-title">{{profile.user}}</h5>
+          <p class="card-text">
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </p>
+          <a href="#" class="btn btn-primary">add to Friend</a>
+          <a href="#!" class="btn btn-primary">Button</a>
+        </div>
+      </div>
+    </div>
+    <!--    content side         -->
+
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="feed-title m-2 p-2">
+            <h1>My posts</h1>
+          </div>
+          <div class="feed-section">
+            <div class="row">
+              <div class="col-3 d-flex align-items-end flex-column">
+                <div class="posts-author-pic">
+                  <img
+                    src="{{profile.avatar.url}}"
+                    height="60px"
+                    alt="Profile picture"
+                    class="rounded"
+                  />
+                </div>
+              </div>
+              <div class="col-9">
+                <div class="posts border m-2 p-2">
+                  <p>{% for post in posts %}</p>
+
+                  <p>{{post.body|safe }}</p>
+
+                  <p>{% for comment in comments %}</p>
+
+                  <p>{{comment.body|safe}}</p>
+
+                  <p>{% endfor %}</p>
+
+                  <p>{% endfor %}</p>
+                  <div class="post-button-section d-flex justify-content-end">
+                    <span> Delete</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="editor-section">
+            {% if user.is_authenticated == profile.id %}
+            <p>...</p>
+            {% else %}
+            <form action="" method="POST">
+              {% csrf_token %} {{form.media}} {{form.as_p}}
+              <p><button class="btn btn-success" type="submit">send</button></p>
+            </form>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

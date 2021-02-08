@@ -1,0 +1,20 @@
+.mx-auto {
+  width: 50px;
+}
+
+.signin {
+  display: inline-block;
+  width: 200px;
+}
+
+.registr-form {
+  max-width: 480px;
+  margin: auto;
+}
+
+.justify-content-center {
+  position: fixed; /* Абсолютное позиционирование */
+  bottom: 300px; /* Положение от нижнего края */
+  right: 600px; /* Положение от правого края */
+  line-height: 1px;
+}
