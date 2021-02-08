@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-lg-8">
           <div class="feed-title m-2 p-2">
-            <h1>My posts</h1>
+            <h1>posts</h1>
           </div>
           <div class="feed-section">
             <div class="row">
@@ -56,17 +56,16 @@
               </div>
             </div>
           </div>
-
+          {% if user.is_authenticated == profile.id %}
+          <p>...</p>
+          {% else %}
           <div class="editor-section">
-            {% if user.is_authenticated == profile.id %}
-            <p>...</p>
-            {% else %}
             <form action="" method="POST">
               {% csrf_token %} {{form.media}} {{form.as_p}}
               <p><button class="btn btn-success" type="submit">send</button></p>
             </form>
-            {% endif %}
           </div>
+          {% endif %}
         </div>
       </div>
     </div>
