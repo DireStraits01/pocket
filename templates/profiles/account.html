@@ -65,8 +65,9 @@
               <div class="col-9">
                 <div class="posts border m-2 p-2">
                   {{post.body|safe }}
+
                   <div class="post-button-section d-flex justify-content-end">
-                    <span> Delete</span>
+                    <a href="{% url 'delete_post' post.id %}">delete post</a>
                   </div>
                 </div>
                 <p>

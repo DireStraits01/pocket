@@ -1,0 +1,9 @@
+{% extends 'base/base.html' %} {% block content%}
+
+<form action="{% url 'delete_post' delete_post.id %}" method="POST">
+  <p><h5>are you sure to delete {{delete_post|safe}}?</h5></p>
+  <input type="submit" value="Yes" />
+  {% csrf_token %}
+  <a href="{% url 'account'  %}">cancel</a>
+</form>
+{% endblock %}

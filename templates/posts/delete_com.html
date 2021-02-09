@@ -1,0 +1,9 @@
+{% extends 'base/base.html' %} {% block content%}
+
+<form action="{% url 'delete_com' delete_com.id %}" method="POST">
+  <p><h5>are you sure to delete {{delete_com|safe}}?</h5></p>
+  <input type="submit" value="Yes" />
+  {% csrf_token %}
+  <a href="{% url 'comments'  %}">cancel</a>
+</form>
+{% endblock %}

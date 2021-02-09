@@ -1,11 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Article, Comments
 from profiles.models import Profile
 from .forms import CommentForm
 from django.http import HttpResponseRedirect
 
-def index(request):
-    return render(request, 'posts/index.html')
+
 
 
 def comments(request, id):
@@ -28,3 +27,20 @@ def comments(request, id):
         return render(request, 'posts/comments.html', context)
 
 
+def delete_post(request, id):
+    delete_post = get_object_or_404(Article, id=id)
+    if request.method == 'POST':
+        delete_post.delete()
+        return redirect('/my_account')
+    context = { 'delete_post':  delete_post}
+    return render(request, 'posts/delete_post.html', context)    
+
+
+def delete_com(request, id):
+    delete_com = get_object_or_404(Comments, id=id)
+    creator = delete_com.author.user
+    if request.method == 'POST' and request.user.is_authenticated and request.user.username  == creator:
+        delete_com.delete()
+        return redirect('/comments')
+    context = { 'delete_com':  delete_com}
+    return render(request, 'posts/delete_com.html', context)       

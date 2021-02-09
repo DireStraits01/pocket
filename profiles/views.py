@@ -27,6 +27,8 @@ def account(request, pk=0):
                 'posts':posts }
     return render(request, 'profiles/account.html', context)
 
+
+
 def profiles(request, pk=0):
     profile = Profile.objects.get(id=pk) # users not require 
     posts_other = profile.author.all() # posts not require users
