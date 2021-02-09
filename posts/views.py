@@ -21,7 +21,7 @@ def comments(request, id):
             new_comment.author = now_user
             new_comment.post = comm_post
             new_comment.save()
-            return HttpResponseRedirect(str(id))
+            return HttpResponseRedirect(f'/comments/{id}')
     else:
         comm_form = CommentForm()
         context = {'comm_post': comm_post, 'comments': comments,

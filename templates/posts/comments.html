@@ -2,6 +2,10 @@
 <p>{%block content %}</p>
 
 {{comm_post.body|safe}}
+
+<p>{% for comment in comments %}</p>
+<p>{{comment.body|safe}}</p>
+<p>{% endfor%}</p>
 <div class="editor-section">
   <form action="" method="POST">
     {% csrf_token %} {{comm_form.media}} {{comm_form.as_p}}
