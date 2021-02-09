@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Profile, Article
 from django.http import HttpResponseRedirect
 from .forms import ArticleForm, AvatarForm, CommentForm
@@ -8,40 +8,33 @@ def list_users(request):
     context = {'users':users}
     return render(request, 'profiles/list_users.html', context)
 
-def account(request):
-    form = ArticleForm
-    now_user = Profile.objects.get(user=request.user)
-    posts = Article.objects.filter(author=now_user)
+
+def account(request, pk=0):
+    post_form = ArticleForm()
+    now_user = Profile.objects.get(user=request.user) # require user
+    posts = Article.objects.filter(author=now_user) # posts require users
+   
+    
     if request.method == "POST":
-            #if request.user == item.user:
-        form = ArticleForm(request.POST, request.FILES)
-        if form.is_valid():
-            new_post = form.save(commit=False)
+        post_form = ArticleForm(request.POST, request.FILES)
+        if post_form.is_valid():
+            new_post = post_form.save(commit=False)
             now_user = Profile.objects.get(user=request.user)
             new_post.author = now_user
             new_post.save()
             return HttpResponseRedirect('/profile/account')
-    context = {'form': form, 'posts':posts }
+    context = { 'post_form': post_form, 
+                'posts':posts }
+    return render(request, 'profiles/account.html', context)
+
+def profiles(request, pk=0):
+    profile = Profile.objects.get(id=pk) # users not require 
+    posts_other = profile.author.all() # posts not require users
+    context = {  'profile':profile, 
+                 'posts_other':posts_other }
     return render(request, 'profiles/account.html', context)
 
 
-def profile_detail(request, pk):
-    profile = Profile.objects.get(id=pk)
-    posts = profile.author.all()
-   
-   
-    form = CommentForm()
-    if request.method == 'POST':
-        form = CommentForm(request.POST, request.FILES)
-        if form.is_valid:
-            new_comment = form.save(commit=False)
-            now_user = Profile.objects.get(user=request.user)
-            new_comment.author = now_user
-            new_comment.save()
-            return HttpResponseRedirect(f'/profile/profile_detail/{pk}')
-
-    context = {'profile':profile, 'posts':posts, 'form': form}
-    return render(request, 'profiles/profile_detail.html', context)        
 
 
 

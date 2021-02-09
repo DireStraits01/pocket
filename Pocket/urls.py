@@ -22,7 +22,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('posts.urls')),
     path('registration/', include('registration.urls')),
-    path('profile/', include('profiles.urls')),
+    path('profiles/', include('profiles.urls')),
     path('ckeditor', include('ckeditor_uploader.urls')),
 ]
 if settings.DEBUG:

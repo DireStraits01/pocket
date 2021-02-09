@@ -18,9 +18,7 @@
       <tr>
         {% for user in users%}
         <td>
-          <a
-            class="btn btn-sm btn-success"
-            href="{% url 'profile_detail' user.id %}"
+          <a class="btn btn-sm btn-success" href="{% url 'profile' user.id %}"
             >открыть</a
           >
         </td>

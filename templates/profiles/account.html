@@ -4,13 +4,15 @@
   <div class="row mt-5">
     <div class="col-md-3">
       <div class="card bg-image hover-overlay ripple">
+        {% if profile.user.username == None %}
         <img
-          src="{{user.profile.avatar.url}}"
+          src="{{ user.profile.avatar.url}}"
           class="img-fluid"
           width="350px"
         />
+        <h1>FIRST</h1>
         <form method="" enctype="multipart/form-data">
-          {% csrf_token %} {{ form2 }}
+          {% csrf_token %}
           <button class="btn btn-sm btn-primary" type="submit">
             Change avatar
           </button>
@@ -24,6 +26,19 @@
           <a href="{% url 'logout' %}" class="btn btn-primary">logout</a>
           <a href="#!" class="btn btn-primary">Button</a>
         </div>
+        {% else %}
+        <img src="{{profile.avatar.url}}" class="img-fluid" width="350px" />
+
+        <div class="card-body">
+          <h5 class="card-title">{{profile.user}}</h5>
+
+          <p class="card-text">
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </p>
+          <a href="#" class="btn btn-primary">add to friend</a>
+        </div>
+        {% endif %}
       </div>
     </div>
     <!--    content side         -->
@@ -31,10 +46,9 @@
     <div class="col-md-9">
       <div class="row">
         <div class="col-lg-8">
-          <div class="feed-title m-2 p-2">
-            <h1>My posts</h1>
-          </div>
+          {% if profile.user.username == None %}
           <div class="feed-section">
+            <h1>My posts</h1>
             {% for post in posts %}
             <div class="row">
               <div class="col-3 d-flex align-items-end flex-column">
@@ -60,9 +74,38 @@
             {% endfor %}
           </div>
 
+          {% else %}
+          <div class="feed-section">
+            <h1>Posts</h1>
+            {% for post in posts_other %}
+            <div class="row">
+              <div class="col-3 d-flex align-items-end flex-column">
+                <div class="posts-author-pic">
+                  <img
+                    src="{{profile.avatar.url}}"
+                    height="60px"
+                    alt="Profile picture"
+                    class="rounded"
+                  />
+                </div>
+              </div>
+              <div class="col-9">
+                <div class="posts border m-2 p-2">
+                  {{post.body|safe }}
+                  <div class="post-button-section d-flex justify-content-end">
+                    <span> comment</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {% endfor %}
+          </div>
+          {% endif %}
+
           <div class="editor-section">
             <form action="" method="POST">
-              {% csrf_token %} {{form.media}} {{form.as_p}}
+              {% csrf_token %} {{post_form.media}} {{post_form.as_p}}
               <p><button class="btn btn-success" type="submit">send</button></p>
             </form>
           </div>
