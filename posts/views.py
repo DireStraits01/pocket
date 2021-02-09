@@ -10,8 +10,6 @@ def index(request):
 
 def comments(request, id):
     comm_form = CommentForm() 
-    #profiles = get_object_or_404(Profile, id=id)
-   # comm_post = profiles.author.get(Article_id=id)
     comm_post = get_object_or_404(Article, id=id)
     comments = comm_post.comments_post.filter()
     if request.method == "POST":
@@ -22,10 +20,9 @@ def comments(request, id):
             new_comment.author = now_user
             new_comment.post = comm_post
             new_comment.save()
-            return HttpResponseRedirect(f'/comments/{id}')
+            return HttpResponseRedirect(f'/posts/comments/{id}')
             # return HttpResponseRedirect(f'/comments/{id}')
     else:
-        comm_form = CommentForm()
         context = {'comm_post': comm_post, 'comments': comments,
                    'comm_form': comm_form}
         return render(request, 'posts/comments.html', context)

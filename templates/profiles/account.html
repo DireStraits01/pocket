@@ -98,7 +98,7 @@
                 <div class="posts border m-2 p-2">
                   {{post.body|safe }}
                   <div class="post-button-section d-flex justify-content-end">
-                    <a href="{% url 'comments' user.id %}">add comment</a>
+                    <a href="{% url 'comments' post.id %}">add comment</a>
                   </div>
                 </div>
               </div>

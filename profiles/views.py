@@ -22,7 +22,7 @@ def account(request, pk=0):
             now_user = Profile.objects.get(user=request.user)
             new_post.author = now_user
             new_post.save()
-            return HttpResponseRedirect('/profiles/my_account')
+            return HttpResponseRedirect('/my_account')
     context = { 'post_form': post_form, 
                 'posts':posts }
     return render(request, 'profiles/account.html', context)

@@ -33,7 +33,7 @@ def register(request):
                 user.refresh_from_db() 
                 user.save()
                 auth.login(request, user) 
-                return redirect('/')
+                return redirect('my_account/')
         else:
             messages.info(request, "password not confirm")
             return redirect('register')
@@ -55,7 +55,7 @@ def login(request):
 
         if user is not None:
             auth.login(request, user)
-            return redirect('/')
+            return redirect('/my_account')
         else:
             messages.info(request, 'invalid credentials')
             return redirect('login')
