@@ -1,16 +1,31 @@
-from django.shortcuts import render
-
-
-
+from django.shortcuts import render, get_object_or_404
+from .models import Article, Comments
+from profiles.models import Profile
+from .forms import CommentForm
+from django.http import HttpResponseRedirect
 
 def index(request):
     return render(request, 'posts/index.html')
 
-''' if request.method == 'POST':
-        form = CommentForm(request.POST, request.FILES)
-        if form.is_valid:
-            new_comment = form.save(commit=False)
+
+def comments(request, id):
+    comm_form = CommentForm() 
+    profiles = get_object_or_404(Profile, id=id)
+    comm_post = profiles.author.get()
+    comments = comm_post.comments.filter()
+    if request.method == "POST":
+        comm_form = CommentForm(request.POST, request.FILES)
+        if  comm_form.is_valid():
+            new_comment = comm_form.save(commit=False)
             now_user = Profile.objects.get(user=request.user)
             new_comment.author = now_user
+            new_comment.post = comm_post
             new_comment.save()
-            return HttpResponseRedirect(f'/profile/profile_detail/{pk}')'''
+            return HttpResponseRedirect(str(id))
+    else:
+        comm_form = CommentForm()
+        context = {'comm_post': comm_post, 'comments': comments,
+                   'comm_form': comm_form}
+        return render(request, 'posts/comments.html', context)
+
+

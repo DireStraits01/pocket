@@ -1,0 +1,12 @@
+{% extends 'base/base.html' %}
+<p>{%block content %}</p>
+
+{{comm_post.body|safe}}
+<div class="editor-section">
+  <form action="" method="POST">
+    {% csrf_token %} {{comm_form.media}} {{comm_form.as_p}}
+    <p><button class="btn btn-success" type="submit">send</button></p>
+  </form>
+</div>
+
+<p>{% endblock %}</p>

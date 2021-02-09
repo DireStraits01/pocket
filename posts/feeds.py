@@ -1,6 +1,6 @@
 from django.contrib.syndication.views import Feed
 from django.template.defaultfilters import truncatewords
-from profiles.models import Article
+from .models import Article
 from django.urls import reverse
  
  

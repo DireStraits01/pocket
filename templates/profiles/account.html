@@ -53,6 +53,7 @@
             <div class="row">
               <div class="col-3 d-flex align-items-end flex-column">
                 <div class="posts-author-pic">
+                  <h4>{{user.username}}</h4>
                   <img
                     src="{{user.profile.avatar.url}}"
                     height="60px"
@@ -81,6 +82,7 @@
             <div class="row">
               <div class="col-3 d-flex align-items-end flex-column">
                 <div class="posts-author-pic">
+                  <h4>{{profile.user}}</h4>
                   <img
                     src="{{profile.avatar.url}}"
                     height="60px"
@@ -93,7 +95,7 @@
                 <div class="posts border m-2 p-2">
                   {{post.body|safe }}
                   <div class="post-button-section d-flex justify-content-end">
-                    <span> comment</span>
+                    <a href="{% url 'comments' user.id %}">add comment</a>
                   </div>
                 </div>
               </div>
@@ -101,14 +103,16 @@
 
             {% endfor %}
           </div>
-          {% endif %}
-
+          {% endif %} {% if profile.user.username == None %}
           <div class="editor-section">
             <form action="" method="POST">
               {% csrf_token %} {{post_form.media}} {{post_form.as_p}}
               <p><button class="btn btn-success" type="submit">send</button></p>
             </form>
           </div>
+          {% else%}
+          <p class="no_publication">no publication...</p>
+          {% endif %}
         </div>
       </div>
     </div>
