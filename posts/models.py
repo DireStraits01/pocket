@@ -19,7 +19,7 @@ class Article(models.Model):
 
 class Comments(models.Model):
       body = RichTextUploadingField(max_length=150, blank=True, null=True, verbose_name='your comment:')
-      post = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments', null=True,blank=True)
+      post = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments_post', null=True,blank=True)
       author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name='comment_author')
       date_create = models.DateTimeField(auto_now_add=True)
 
