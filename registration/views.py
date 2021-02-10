@@ -7,7 +7,7 @@ from django.conf import settings
 
 
 
-def register(request):
+def register(request, pk=0):
     if request.method == 'POST':
         username = request.POST['username']
         email = request.POST['email']
@@ -33,14 +33,14 @@ def register(request):
                 user.refresh_from_db() 
                 user.save()
                 auth.login(request, user) 
-                return redirect('my_account/')
+                return redirect('/')
         else:
             messages.info(request, "password not confirm")
             return redirect('register')
     return render(request, 'registration/register.html')
 
 
-def login(request):
+def login(request, pk=0):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -55,7 +55,8 @@ def login(request):
 
         if user is not None:
             auth.login(request, user)
-            return redirect('/my_account')
+
+            return redirect('profile',  pk = user.pk)
         else:
             messages.info(request, 'invalid credentials')
             return redirect('login')

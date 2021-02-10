@@ -6,6 +6,8 @@ from django.http import HttpResponseRedirect
 
 
 
+def index(request):
+    return render(request, 'posts/index.html')
 
 def comments(request, id):
     comm_form = CommentForm() 
@@ -30,17 +32,18 @@ def comments(request, id):
 def delete_post(request, id):
     delete_post = get_object_or_404(Article, id=id)
     if request.method == 'POST':
+        user=request.user
         delete_post.delete()
-        return redirect('/my_account')
+        return redirect('profile',  pk = user.id)
     context = { 'delete_post':  delete_post}
     return render(request, 'posts/delete_post.html', context)    
 
 
 def delete_com(request, id):
     delete_com = get_object_or_404(Comments, id=id)
+    post = delete_com.post
     if request.method == 'POST': 
         delete_com.delete()
-        id = id-1
-        return redirect('/my_account')
+        return redirect('comments', id = post.id )
     context = { 'delete_com':  delete_com}
     return render(request, 'posts/delete_com.html', context)       

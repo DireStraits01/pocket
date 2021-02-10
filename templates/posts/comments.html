@@ -1,11 +1,17 @@
 {% extends 'base/base.html' %}
 <p>{%block content %}</p>
 
-{{comm_post.body|safe}}
+{{comm_post|safe}}
 
 <p>{% for comment in comments %}</p>
+
 <p>{{comment.body|safe}}</p>
+<strong>{{comment.author|safe}}</strong>
+{% if comment.author == request.user.profile %}
 <a href="{% url 'delete_com' comment.id %}">delete com</a>
+{% else%}
+<a href="#">Like</a>
+{% endif %}
 <p>{% endfor%}</p>
 <div class="editor-section">
   <form action="" method="POST">

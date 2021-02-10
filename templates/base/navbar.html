@@ -18,7 +18,7 @@
           <a class="nav-link" aria-current="page" href="#">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
+          <a class="nav-link" href="{% url 'index' %}">index</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'list_users' %}">list_users</a>
@@ -37,7 +37,7 @@
 
     <div>
       {% if user.is_authenticated %}
-      <a class="navbar-brand" href="{% url 'account' %}">
+      <a class="navbar-brand" href="{% url 'profile' user.id %}">
         <img
           src="{{user.profile.avatar.url}}"
           alt=""

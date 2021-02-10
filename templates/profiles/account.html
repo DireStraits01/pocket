@@ -4,7 +4,7 @@
   <div class="row mt-5">
     <div class="col-md-3">
       <div class="card bg-image hover-overlay ripple">
-        {% if profile.user.username == None %}
+        {% if profile.user == request.user %}
         <img
           src="{{ user.profile.avatar.url}}"
           class="img-fluid"
@@ -46,7 +46,7 @@
     <div class="col-md-9">
       <div class="row">
         <div class="col-lg-8">
-          {% if profile.user.username == None %}
+          {% if profile.user.username == request.user.username %}
           <div class="feed-section">
             <h1>My posts</h1>
             {% for post in posts %}
@@ -70,6 +70,9 @@
                     <a href="{% url 'delete_post' post.id %}">delete post</a>
                   </div>
                 </div>
+
+                <p>not comments soryy</p>
+
                 <p>
                   <a href="{% url 'comments' post.id %}">show comments</a>
                 </p>
@@ -107,7 +110,9 @@
 
             {% endfor %}
           </div>
-          {% endif %} {% if profile.user.username == None %}
+          {% endif %}
+
+          <p>{% if profile.user == request.user %}</p>
           <div class="editor-section">
             <form action="" method="POST">
               {% csrf_token %} {{post_form.media}} {{post_form.as_p}}
@@ -115,7 +120,7 @@
             </form>
           </div>
           {% else%}
-          <p class="no_publication">no publication...</p>
+          <p class="no_publication">...</p>
           {% endif %}
         </div>
       </div>

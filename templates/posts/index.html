@@ -2,4 +2,11 @@
 
 <h1>Welcome to Pocket</h1>
 
-{% endblock %}
+{% if user.is_authenticated == None %}
+<p>1 == 1</p>
+
+{% else %}
+<p>1!= 1</p>
+
+{% endif %}
+<p>{% endblock %}</p>
