@@ -4,6 +4,7 @@
   <p><h5>are you sure to delete {{delete_com|safe}}?</h5></p>
   <input type="submit" value="Yes" />
   {% csrf_token %}
-  <a href="{% url 'comments'  %}">cancel</a>
+  <a href="{% url 'account'  %}">cancel</a>
 </form>
+
 {% endblock %}

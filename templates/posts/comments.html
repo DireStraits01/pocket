@@ -5,6 +5,7 @@
 
 <p>{% for comment in comments %}</p>
 <p>{{comment.body|safe}}</p>
+<a href="{% url 'delete_com' comment.id %}">delete com</a>
 <p>{% endfor%}</p>
 <div class="editor-section">
   <form action="" method="POST">

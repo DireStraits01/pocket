@@ -38,9 +38,9 @@ def delete_post(request, id):
 
 def delete_com(request, id):
     delete_com = get_object_or_404(Comments, id=id)
-    creator = delete_com.author.user
-    if request.method == 'POST' and request.user.is_authenticated and request.user.username  == creator:
+    if request.method == 'POST': 
         delete_com.delete()
-        return redirect('/comments')
+        id = id-1
+        return redirect('/my_account')
     context = { 'delete_com':  delete_com}
     return render(request, 'posts/delete_com.html', context)       
