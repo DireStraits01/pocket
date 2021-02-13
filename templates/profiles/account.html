@@ -24,7 +24,8 @@
             bulk of the card's content.
           </p>
           <a href="{% url 'logout' %}" class="btn btn-primary">logout</a>
-          <a href="#!" class="btn btn-primary">Button</a>
+          <a href="{% url 'messages' profile.id %}" class="btn btn-success"
+            >messages</a
         </div>
         {% else %}
         <img src="{{profile.avatar.url}}" class="img-fluid" width="350px" />
@@ -37,6 +38,9 @@
             bulk of the card's content.
           </p>
           <a href="#" class="btn btn-primary">add to friend</a>
+          <a href="{% url 'messages' profile.id %}" class="btn btn-success"
+            >messages</a
+          >
         </div>
         {% endif %}
       </div>

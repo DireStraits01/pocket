@@ -4,6 +4,7 @@ from posts.models import Article, Comments
 from django.http import HttpResponseRedirect
 from .forms import AvatarForm
 from posts.forms import ArticleForm, CommentForm
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -37,8 +38,6 @@ def profiles(request, pk=0):
 
 
 
-
-
 def image_upload_view(request):
-    """Process images uploaded by users"""
+    """Process images uploaded by users  'conversations': conversations,"""
     pass

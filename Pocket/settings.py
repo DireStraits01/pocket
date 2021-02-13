@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'posts.apps.PostsConfig',
     'profiles.apps.ProfilesConfig',
     'registration.apps.RegistrationConfig',
+    'direct.apps.DirectConfig',
     'ckeditor',
     'ckeditor_uploader',
     

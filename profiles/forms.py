@@ -7,5 +7,3 @@ class AvatarForm(ModelForm):
         model = Profile
         fields = ('avatar',)
 
-
-
