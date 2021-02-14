@@ -41,13 +41,15 @@ INSTALLED_APPS = [
     'posts.apps.PostsConfig',
     'profiles.apps.ProfilesConfig',
     'registration.apps.RegistrationConfig',
-    'direct.apps.DirectConfig',
     'ckeditor',
     'ckeditor_uploader',
+    'postman'
     
 ]
 
 CKEDITOR_UPLOAD_PATH = 'images/%Y/%m/%d'
+POSTMAN_AUTO_MODERATE_AS=True
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

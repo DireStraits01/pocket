@@ -23,9 +23,9 @@ urlpatterns = [
     path('', include('profiles.urls')),
     path('posts/', include('posts.urls')),
     path('registration/', include('registration.urls')),
-    path('direct/', include('direct.urls')),
     path('ckeditor', include('ckeditor_uploader.urls')),
-    
+    path('messages/', include('postman.urls')),
+   
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
