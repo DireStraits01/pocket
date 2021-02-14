@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'registration.apps.RegistrationConfig',
     'ckeditor',
     'ckeditor_uploader',
+    'dj_pagination',
     'postman'
     
 ]
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'dj_pagination.middleware.PaginationMiddleware',
 ]
 
 ROOT_URLCONF = "Pocket.urls"
@@ -74,10 +76,13 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                
             ],
         },
     },
 ]
+# dj_pagination.
+
 
 WSGI_APPLICATION = "Pocket.wsgi.application"
 
