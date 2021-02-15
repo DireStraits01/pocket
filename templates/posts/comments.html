@@ -1,17 +1,61 @@
 {% extends 'base/base.html' %}
 <p>{%block content %}</p>
 
-{{comm_post|safe}}
+
 
 <p>{% for comment in comments %}</p>
 
-<p>{{comment.body|safe}}</p>
-<strong>{{comment.author|safe}}</strong>
-{% if comment.author == request.user.profile %}
-<a href="{% url 'delete_com' comment.id %}">delete com</a>
-{% else%}
-<a href="#">Like</a>
+
+   <div class="row">
+        <div class="col-3 d-flex align-items-end flex-column">
+             <div class="comment-author-pic">
+                 <a href="{% url 'profile' comment.author.id %}">
+                  <img
+                    src="{{comment.author.avatar.url}}"
+                    alt="Profile picture"
+                    class="round"
+
+                  /></a>
+             </div>
+         </div>
+         <div class="col-9" > 
+
+
+
+
+                 {% if comment.author == request.user.profile %}
+                <p class="card-text">
+                      <small class="text-muted">
+                      	<a href="{% url 'profile' comment.author.id %}">{{comment.author}} 
+                      	</a>-      {{comment.date_create}}
+                      </small>
+
+                      <div class="posts border m-2 p-2 notification message is-primmary">
+          	               {{comment.body|safe }}
+                        <a href="{% url 'delete_com' comment.id %}" class='delete'>
+            	
+                         </a>
+                        
+                      </div> 
+                                        {% else%}
+                       <a href="#">
+                           Like
+                       </a>
+                </p>
+          
+
+
+
+
+
+
 {% endif %}
+          </div>
+    </div>
+
+
+
+
 <p>{% endfor%}</p>
 <div class="editor-section">
   <form action="" method="POST">
@@ -21,3 +65,16 @@
 </div>
 
 <p>{% endblock %}</p>
+
+
+
+
+
+
+
+
+
+
+
+
+         

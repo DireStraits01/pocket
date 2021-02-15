@@ -1,0 +1,122 @@
+{% extends 'base/base.html' %} {%block content %}
+
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-3">
+      {% if profile.user == request.user %}
+      <div class="card bg-image hover-overlay ripple">
+        <div>
+          <img
+            src="{{ user.profile.avatar.url}}"
+            class="img-fluid"
+            width="350px"
+          />
+
+          <a
+            href="{% url 'change_avatar' profile.id %}"
+            class="btn btn-sm btn-succes card-body container"
+            type="submit"
+          >
+            Change avatar
+          </a>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{profile.user}}</h5>
+          <p>registered {{user.profile.created|date:'Y-m-d'}}</p>
+          <p class="card-text">about: {{user.profile.about}}</p>
+          <a href="#" class="btn btn-primary"> Friends </a>
+          <a href="{% url 'postman:inbox' %}" class="btn btn-success">
+            messages
+          </a>
+        </div>
+      </div>
+      {% else %}
+      <!--################################## users ###################################### -->
+      <div class="card bg-image hover-overlay ripple">
+        <div>
+          <img src="{{ profile.avatar.url}}" class="img-fluid" width="350px" />
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{profile}}</h5>
+          <p>registered {{profile.created|date:'Y-m-d'}}</p>
+          <p class="card-text">about: {{profile.about}}</p>
+          <a href="#" class="btn btn-primary"> Add to Friends </a>
+          <a href="{% url 'postman:inbox' %}" class="btn btn-success">
+            send messages
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endif %}
+  <!--   $$$$$$$$$$$$$$$$$$$$$$ content side    $$$$$$$$$$$$$$$$$$$$$$$$$$$     -->
+  {% if profile.user.username == request.user.username %}
+
+  <div class="col-md-9">
+    <div><h1>My Posts</h1></div>
+    <div class="row">
+      <div class="col">
+        <div class="feed-section">
+          {% for post in posts %}
+
+          <div>
+            <p class="card-text">
+              <small class="text-muted">
+                {{user.username}} - {{post.date_create}}
+              </small>
+            </p>
+          </div>
+
+          <article class="message is-medium">
+            <div class="message-header">
+              <p></p>
+              <a
+                href="{% url 'delete_post' post.id %}"
+                class="delete is-medium"
+                aria-label="delete"
+              ></a>
+            </div>
+            <div class="message-body">{{post.body|safe }}</div>
+            <div>
+              <p>
+                <a
+                  href="{% url 'comments' post.id %}"
+                  class="button is-info is-outlined"
+                  >comments</a
+                >
+              </p>
+            </div>
+          </article>
+
+          {% endfor %} {% else %}
+          <div class="feed-section">
+            {% for post in posts_other %}
+            <div class="row">
+              <div class="col-3 d-flex align-items-end flex-column">
+                <div class="col-9">
+                  <div>
+                    <p class="card-text">
+                      <small class="text-muted">{{post.date_create}}</small>
+                    </p>
+                  </div>
+                  <div class="posts border m-2 p-2">
+                    {{post.body|safe }}
+                    <div class="post-button-section d-flex justify-content-end">
+                      <a href="{% url 'comments' post.id %}">add comment</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+            <!--end -->
+            {% endif %}
+            <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%     Others Users side     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55%-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>{% endblock %}</p>

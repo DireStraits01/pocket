@@ -1,0 +1,96 @@
+{% extends 'base/base.html' %} {%block content %}
+ {% if profile.user == request.user %}
+  <div class="container">
+    <div class="row mt-5">
+          <div class="col-md-3">
+                      <div class="card bg-image hover-overlay ripple">
+                        
+                                <img src="{{profile.avatar.url}}" class="img-fluid" width="350px" />
+                                  <a
+                            href="{% url 'change_avatar' profile.id %}"
+                            class="btn btn-sm btn-succes card-body container"
+                            type="submit" >
+                            Change avatar
+                            </a>
+                      </div>
+              <div class="card-body">
+                <h5 class="card-title">{{profile.user}}</h5>
+                <p class="card-text">
+                <p>registered {{user.profile.created|date:'Y-m-d'}}</p>
+                <p class="card-text">about: {{user.profile.about}}</p>
+                </p>
+                <a href="#" class="btn btn-primary">Friends</a>
+                <a href="#!" class="btn btn-success">Messages</a>
+              </div>
+          
+          </div>  
+        </div>
+      </div>
+        <!--    content side         -->
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-md-12">            
+                              {% for post in posts %}
+                              <div class='name and date'>
+                                  <p class="card-text">
+                                    <small class="text-muted">
+                                      {{user.username}} - {{post.date_create}}
+                                    </small>
+                                  </p>
+                              </div>
+                            <div>
+                                <article class="message is-medium">
+                                    <div class="message-header">
+                                      <p>{{post.title|safe}}</p>
+                                        <a
+                                          href="{% url 'delete_post' post.id %}"
+                                          class="delete is-medium"
+                                          aria-label="delete">
+                                        </a>
+                                      </div>
+                                      <div class="message-body">{{post.body|safe }}</div>
+                                      <div>
+                                        <p>
+                                            <a
+                                              href="{% url 'comments' post.id %}"
+                                              class="button is-info is-outlined"
+                                              >comments
+                                            </a>
+                                          </p>
+                                        </div>
+                                </article>
+                              </div>
+                                                          {% endfor %}
+                                  
+                        
+            
+                    <div class="editor-section">
+                      <form action="" method="POST">
+                        {% csrf_token %} {{post_form.media}} {{post_form.as_p}}
+                        <p><button class="btn btn-success" type="submit">send</button></p>
+                      </form>
+                    </div>
+              
+                  </div>
+                </div>
+          </div>
+      </div>  
+  </div>
+
+     {% endif %}
+
+
+
+
+
+
+
+
+<!-- $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ for anothers users $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->
+
+
+
+
+
+
+{% endblock %}

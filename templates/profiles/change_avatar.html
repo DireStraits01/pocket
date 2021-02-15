@@ -1,0 +1,21 @@
+ {% extends 'base/base.html' %} {% block content%}
+
+<title>{% block title %} Change avatar {% endblock title %}</title>
+
+
+<img
+	src="{{ user.profile.avatar.url}}"
+	class="img-fluid"
+	width="350px"
+/>
+
+<form method="POST" enctype="multipart/form-data">
+            {% csrf_token %} 
+            {{ava_form}}
+     <button class="button is-primary is-outlined" type="submit">
+            change
+     </button>
+</form>
+
+
+{% endblock %}

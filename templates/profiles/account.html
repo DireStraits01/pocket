@@ -3,120 +3,113 @@
 <div class="container">
   <div class="row mt-5">
     <div class="col-md-3">
-      <div class="card bg-image hover-overlay ripple">
+      <div class="card bg-image hover-overlay ripple ">
+       <!--****************Profile request ******************-->
         {% if profile.user == request.user %}
-        <img
-          src="{{ user.profile.avatar.url}}"
-          class="img-fluid"
-          width="350px"
-        />
-        <h1>FIRST</h1>
-        <form method="" enctype="multipart/form-data">
-          {% csrf_token %}
-          <button class="btn btn-sm btn-primary" type="submit">
-            Change avatar
-          </button>
-        </form>
-        <div class="card-body">
+          <img src="{{user.profile.avatar.url}}" class="img-fluid" width="350px" />
+            <a href="{% url 'change_avatar' profile.id %}"
+              class="btn btn-sm btn-succes card-body container "
+              type="submit"/>
+              Change avatar</a>
+        <div class="card-body center">
           <h5 class="card-title">{{user.username}}</h5>
           <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <a href="{% url 'logout' %}" class="btn btn-primary">logout</a>
-          <a href="{% url 'postman:inbox' %}" class="btn btn-success"
-            >messages</a
-          >
+            <p>registered {{user.profile.created|date:'Y-m-d'}}</p>
+            <p class="card-text">about: {{user.profile.about}}</p>
+          </p >
+          <a  href="#" class="btn btn-primary btn-sm "> Friends </a>
+          <a href="{% url 'postman:inbox' %}" class="btn btn-info btn-sm "
+            >messages</a>
         </div>
-        {% else %}
+
+          <!--****************Profile  not request ******************-->
+                    {% else %}
         <img src="{{profile.avatar.url}}" class="img-fluid" width="350px" />
 
-        <div class="card-body">
+        <div class="card-body center">
           <h5 class="card-title">{{profile.user}}</h5>
-
           <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+             <p>registered {{user.profile.created|date:'Y-m-d'}}</p>
+             <p class="card-text">about: {{user.profile.about}}</p>
           </p>
-          <a href="#" class="btn btn-primary">add to friend</a>
-          <a href="{% url 'postman:write' %}" class="btn btn-success"
-            >send a message</a
-          >
+          <a href="#" class="btn btn-primary btn-sm">add to friend</a>
+          
+          <a href="{% url 'postman:write' %}"  class="btn btn-info btn-sm mt-1">send a message</a>
+           
         </div>
-        {% endif %}
+         {% endif %}
       </div>
     </div>
     <!--    content side         -->
 
     <div class="col-md-9">
       <div class="row">
-        <div class="col-lg-8">
-          {% if profile.user.username == request.user.username %}
+        <div class="col-md-12">
           <div class="feed-section">
-            <h1>My posts</h1>
-            {% for post in posts %}
             <div class="row">
-              <div class="col-3 d-flex align-items-end flex-column">
-                <div class="posts-author-pic">
-                  <h4>{{user.username}}</h4>
-                  <img
-                    src="{{user.profile.avatar.url}}"
-                    height="60px"
-                    alt="Profile picture"
-                    class="rounded"
-                  />
+               
+            <!--****************Posts     request user  ******************-->
+                   {% if profile.user == request.user %}
+                                  {% for post in posts %}
+
+             <p class="card-text">
+                <small class="text-muted">                     
+                {{post.author}} - {{post.date_create}} 
+                </small>
+              </p>
+
+
+                   <a 
+                     class="delete is-medium" aria-label="delete"  
+                     href="{% url 'delete_post' post.id %}">
+                   </a>
+              <article class="message is-dark">
+                <div class="message-body">
+                  {{ post.body|safe }}
                 </div>
-              </div>
-              <div class="col-9">
-                <div class="posts border m-2 p-2">
-                  {{post.body|safe }}
 
-                  <div class="post-button-section d-flex justify-content-end">
-                    <a href="{% url 'delete_post' post.id %}">delete post</a>
-                  </div>
-                </div>
 
-                <p>not comments soryy</p>
+                   <a    
+                    href="{% url 'comments' post.id %}"
+                     class="button is-dark ">
+                      comments:{{count_com}}
+                  </a>   
+            
+                  
+               </article> 
+                
+              
+                  {% endfor %}
+                  
 
-                <p>
-                  <a href="{% url 'comments' post.id %}">show comments</a>
+
+                   <!--****************Posts    not request user  ******************-->
+                  {% else %}
+                  {% for post in posts_other %}
+
+                <p class="card-text">
+                  <small class="text-muted">   
+                      <h5>{{post.author}} - {{post.date_create}} </h5>  
+                  </small>
                 </p>
-              </div>
-            </div>
-
-            {% endfor %}
+                
+              <article class="message is-dark">
+                
+                <div class="message-body">
+                  {{ post.body|safe }}
+                </div>
+                 <a
+                  href="{% url 'comments' post.id %}"
+                  class="button is-info is-outlined">
+                  comments:{{count_com}}</a>
+               </article>
+                  {% endfor %}{% endif %}
+                   <!--****************END Posts      ******************-->
+            
+            </div>  
           </div>
 
-          {% else %}
-          <div class="feed-section">
-            <h1>Posts</h1>
-            {% for post in posts_other %}
-            <div class="row">
-              <div class="col-3 d-flex align-items-end flex-column">
-                <div class="posts-author-pic">
-                  <h4>{{profile.user}}</h4>
-                  <img
-                    src="{{profile.avatar.url}}"
-                    height="60px"
-                    alt="Profile picture"
-                    class="rounded"
-                  />
-                </div>
-              </div>
-              <div class="col-9">
-                <div class="posts border m-2 p-2">
-                  {{post.body|safe }}
-                  <div class="post-button-section d-flex justify-content-end">
-                    <a href="{% url 'comments' post.id %}">add comment</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {% endfor %}
-          </div>
-          {% endif %}
-
+             <!--****************Form request user  ******************-->
           <p>{% if profile.user == request.user %}</p>
           <div class="editor-section">
             <form action="" method="POST">
@@ -124,9 +117,11 @@
               <p><button class="btn btn-success" type="submit">send</button></p>
             </form>
           </div>
+           <!--****************Form not request user  ******************-->
           {% else%}
           <p class="no_publication">...</p>
           {% endif %}
+           <!--****************END FORM  ******************-->
         </div>
       </div>
     </div>

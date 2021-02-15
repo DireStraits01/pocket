@@ -13,7 +13,7 @@ class Profile(models.Model):
     email = models.EmailField(max_length=150, blank=True)
     country = models.CharField(max_length=100, blank=True)
     about = models.TextField(blank=True, null=True)
-    avatar = models.ImageField(default = 'avatar.svg', upload_to = 'avatars/%Y/%m/%d', blank=True)
+    avatar = models.ImageField(default = 'avatar.svg', upload_to = 'avatars/%Y/%m/%d', blank=True, null=True)
     friends = models.ManyToManyField(User, blank=True, related_name='friends')
     update = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -21,6 +21,12 @@ class Profile(models.Model):
     def __str__(self):
         return f"{self.user}"
 
+
+    @receiver(post_save, sender=User)
+    def update_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+        instance.profile.save()
 
     
 

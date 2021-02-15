@@ -1,6 +1,6 @@
 from django.forms import ModelForm
-from .models import Profile
-from django.contrib.auth import get_user_model
+from profiles.models import Profile
+
 
 class AvatarForm(ModelForm):
     class Meta:
