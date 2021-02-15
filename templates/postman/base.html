@@ -4,6 +4,7 @@
 {# not myself but a site-level one (TEMPLATE_DIRS setting) #}
 <!-- prettier-ignore -->
 {% load i18n static %}{% load postman_tags %} {% block title %}{% trans "Messaging" %}
+
 <!-- prettier-ignore -->
 {% endblock %} {% block extrahead %}{{ block.super }}
 <link
@@ -14,6 +15,7 @@
 />
 {% endblock %} {% block postman_menu %}
 <!-- prettier-ignore -->
+
 
 <div class="tabs is-centered">
   <ul id="postman_menu">

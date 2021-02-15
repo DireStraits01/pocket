@@ -12,6 +12,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     email = models.EmailField(max_length=150, blank=True)
     country = models.CharField(max_length=100, blank=True)
+    about = models.TextField(blank=True, null=True)
     avatar = models.ImageField(default = 'avatar.svg', upload_to = 'avatars/%Y/%m/%d', blank=True)
     friends = models.ManyToManyField(User, blank=True, related_name='friends')
     update = models.DateTimeField(auto_now=True)

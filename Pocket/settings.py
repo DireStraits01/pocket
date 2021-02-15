@@ -44,10 +44,11 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'dj_pagination',
-    'postman'
+    'postman',
+    'crispy_forms',
     
 ]
-
+CRISPY_TEMPLATE_PACK = 'uni_form'
 CKEDITOR_UPLOAD_PATH = 'images/%Y/%m/%d'
 POSTMAN_AUTO_MODERATE_AS=True
 
