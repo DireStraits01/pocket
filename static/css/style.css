@@ -23,28 +23,31 @@
   color: #c0c0c0;
 }
 
-
-.comment-author-pic{
-  width: 100px
+.comment-author-pic {
+  width: 100px;
 }
 
+.round {
+  border-radius: 50%; /* Радиус скругления */
+  border: 3px solid white; /* Параметры рамки */
+  box-shadow: 0 0 7px #666; /* Параметры тени */
+}
 
- .round {
-    border-radius: 50%; /* Радиус скругления */
-    border: 3px solid white; /* Параметры рамки */
-    box-shadow: 0 0 7px #666; /* Параметры тени */
-   }
+.center {
+  text-align: center;
+  background-color: #e6f0ff;
+}
 
-
-.center { text-align: center; 
-         background-color: #e6f0ff;
-
-}   
-
-.delete {
+.deleted {
   position: fixed; /* Абсолютное позиционирование */
   bottom: 5px; /* Положение от нижнего края */
   left: 835px; /* Положение от правого края */
   line-height: 1px;
 }
 
+.com {
+  position: fixed; /* Абсолютное позиционирование */
+  bottom: 5px; /* Положение от нижнего края */
+  left: 905px; /* Положение от правого края */
+  line-height: 1px;
+}

@@ -53,6 +53,7 @@ CKEDITOR_UPLOAD_PATH = 'images/%Y/%m/%d'
 POSTMAN_AUTO_MODERATE_AS=True
 
 
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
