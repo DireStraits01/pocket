@@ -40,7 +40,7 @@ def register(request, pk=0):
     return render(request, 'registration/register.html')
 
 
-def login(request, pk=0):
+def login(request, id=0):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -56,7 +56,7 @@ def login(request, pk=0):
         if user is not None:
             auth.login(request, user)
 
-            return redirect('profile',  pk = user.pk)
+            return redirect('profile',  id = user.id)
         else:
             messages.info(request, 'invalid credentials')
             return redirect('login')

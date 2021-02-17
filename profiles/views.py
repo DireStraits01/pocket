@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Profile
+from profiles.models import Profile
 from posts.models import Article, Comments
 from django.http import HttpResponseRedirect
 from .forms import AvatarForm
@@ -14,22 +14,22 @@ def list_users(request):
     return render(request, 'profiles/list_users.html', context)
 
 
+def list_posts(request):
+    posts = Article.objects.all()[::-1]
+    context = {'posts':posts}
+    return render(request, 'profiles/list_posts.html', context)
+
+
     
-def profiles(request, pk=0):
+def profileDetailView(request, id):
     post_form = ArticleForm()
+    profile = Profile.objects.get(id=id)
     now_user = Profile.objects.get(user=request.user) # require user
     posts = Article.objects.filter(author=now_user) # posts require users
-    profile = Profile.objects.get(id=pk) # users not require 
     posts_other = profile.author.all() # posts not require users
 
-    # count comment for not request user
-    comm_post = get_object_or_404(Article, id=pk)
-    comm = comm_post.comments_post.all()
-    count_com = comm.count()
-
+   
     # count comment for request user
-
-
     if request.method == "POST":
         post_form = ArticleForm(request.POST, request.FILES)
         if post_form.is_valid():
@@ -37,15 +37,14 @@ def profiles(request, pk=0):
             now_user = Profile.objects.get(user=request.user)
             new_post.author = now_user
             new_post.save()
-            return HttpResponseRedirect(f'/profile/{pk}')
+            return redirect(f'/profile/{id}/detail/')
 
  
     context = {  'profile':profile, 
                  'posts_other':posts_other,
                  'post_form' : post_form,
                  'posts' : posts,
-                 'count_com':count_com,
-               
+                
                  }
     return render(request, 'profiles/account.html', context)
 
@@ -68,8 +67,3 @@ def change_avatar(request,id=0):
             return redirect('change_avatar', id=now_user.id)        
     ava_form = AvatarForm(instance=now_user)        
     return render(request, 'profiles/change_avatar.html', {'ava_form':ava_form})
-
-
-def image_upload_view(request):
-    """Process images uploaded by users  'conversations': conversations,"""
-    pass

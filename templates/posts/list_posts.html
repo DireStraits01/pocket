@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %} {% block content%}
+
+<title>{% block title %}  News {% endblock title %}</title>
+
+
+{% for post in posts %}
+
+
+<div class="card mb-3">
+  <a href="{% url 'profile' user.id %}" >{{post.author}}</a>
+  <div class="card-body">
+    <p class="card-text">{{post.body|safe}}</p>
+    <p class="card-text"><small class="text-muted">{{post.date_create|date:'Y-m-d'}}</small></p>
+    <a class="button is-focused" href="{% url 'comments' post.id %}">открыть</a>
+  </div>
+</div>
+{% endfor %}
+
+
+{% endblock %}

@@ -31,6 +31,7 @@
   border-radius: 50%; /* Радиус скругления */
   border: 3px solid white; /* Параметры рамки */
   box-shadow: 0 0 7px #666; /* Параметры тени */
+  width: 100px;
 }
 
 .center {
@@ -45,9 +46,10 @@
   line-height: 1px;
 }
 
-.com {
+.del {
   position: fixed; /* Абсолютное позиционирование */
   bottom: 5px; /* Положение от нижнего края */
-  left: 905px; /* Положение от правого края */
+  left: 780px; /* Положение от правого края */
   line-height: 1px;
 }
+

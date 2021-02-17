@@ -22,9 +22,10 @@ from django.views.decorators.cache import never_cache
 from ckeditor_uploader import views as ckeditor_views
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path('', include('profiles.urls')),
     path('posts/', include('posts.urls')),
+    path('', include('profiles.urls')),
+    path("admin/", admin.site.urls),
+    
     path('registration/', include('registration.urls')),
     path('messages/', include('postman.urls')),
     path('ckeditor/upload/', login_required(ckeditor_views.upload), name='ckeditor_upload'),

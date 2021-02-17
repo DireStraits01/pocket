@@ -1,6 +1,16 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+      {% if user.is_authenticated %}
+    <a class="navbar-brand" href="{% url 'profile' user.id %}"> <img
+          src="{{user.profile.avatar.url}}"
+          alt=""
+          width="50"
+          height="50"
+          class="round"/>
+    </a>
+    {% else %}
+        ...
+    {% endif %}
     <button
       class="navbar-toggler"
       type="button"
@@ -19,16 +29,16 @@
             class="nav-link"
             aria-current="page"
             href="{% url 'postman:write' user.id %}"
-            >Conversations</a
+            >conversations</a
           >
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'index' %}">index</a>
+       <li class="nav-item">
+          <a class="nav-link" href="{% url 'list_users' %}">users</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'list_users' %}">list_users</a>
+          <a class="nav-link" href="{% url 'list_posts' %}">news</a>
         </li>
-        <li class="nav-item">
+       <!-- <li class="nav-item">
           <a
             class="nav-link disabled"
             href="#"
@@ -36,21 +46,14 @@
             aria-disabled="true"
             >Disabled</a
           >
-        </li>
+        </li>-->
       </ul>
     </div>
 
     <div>
       {% if user.is_authenticated %}
-      <a  href="{% url 'logout' %}" class="btn btn-danger">logout
-     <!--   <img
-          src="{{user.profile.avatar.url}}"
-          alt=""
-          width="50"
-          height="50"
-          class="d-inline-block"
-        /> -->
-
+      <a  href="{% url 'logout' %}" class="btn btn-danger">
+        logout
       </a>
       {% else %}
       <div class="signin">

@@ -6,8 +6,7 @@ from django.http import HttpResponseRedirect
 
 
 
-def index(request):
-    return render(request, 'posts/index.html')
+
 
 def comments(request, id):
     comm_form = CommentForm() 

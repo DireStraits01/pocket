@@ -3,19 +3,43 @@
 <title>{% block title %} Change avatar {% endblock title %}</title>
 
 
-<img
-	src="{{ user.profile.avatar.url}}"
-	class="img-fluid"
-	width="350px"
-/>
+<div class="container">
 
-<form method="POST" enctype="multipart/form-data">
-            {% csrf_token %} 
-            {{ava_form}}
-     <button class="button is-primary is-outlined" type="submit">
-            change
-     </button>
-</form>
+	<div class='row'>
+		<div class="col-md-4"></div>
+	    <div class='col-md-4'>
+					<span class="icon-text">
+					  <span class="icon">
+					    <i class="fas fa-home"></i>
+					  </span>
+					  <span><a href="{% url 'profile' user.id %}">home</a></span>
+					</span>
+              
+        </div>
 
+           <div class="col-md-4"></div>
+		<div class='row'>
+			<div class="col-md-4"></div>
+                   <div class="col-md-4">
 
+			                   
+								<img
+									src="{{ user.profile.avatar.url}}"
+									class="img-fluid"
+									width="350px"
+								/>
+
+								<form method="POST" enctype="multipart/form-data">
+								            {% csrf_token %} 
+								            {{ava_form}}
+								     <button class="button is-primary is-outlined" type="submit">
+								            change
+								     </button>
+								</form>
+		            </div>	
+		        <div class="col-md-4"></div>    		
+	    </div>
+					
+	</div>				
+</div>
 {% endblock %}

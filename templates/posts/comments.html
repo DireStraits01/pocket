@@ -2,92 +2,84 @@
 <p>{%block content %}</p>
 
 
-<div>
-    <a href="{% url 'profile' comm_post.author.id %}"> 
-      <img src="{{profile.avatar.url}}" class="img-fluid" width="100px" />
-    </a>
-            
-            <p class="card-text com_page">
-                <small class="text-muted">                     
-                <a href="{% url 'profile' comm_post.author.id %}">   
-                  {{comm_post.author}} - {{comm_post.date_create}} 
-                </a>
-               <strong>{{comm_post.body|safe}}</strong> 
-                </small>
-              </p>
+       <div class='container'>
+                  <div class="row">
+                    <div class="col-md-2">
+                     </div>
+                        <div class="col-md-8">
+                         <p class="card-text ">
+                            <strong class="postcom">{{comm_post.body|safe}}</strong> 
+                              <small class="text-muted">                     
+                              <a href="{% url 'profile' comm_post.author.id %}">   
+                                   {{comm_post.author}} - {{comm_post.date_create}} 
+                              </a>
+                              </small>
+                          </p>
+                       </div> 
+                      <div class="col-md-2">
+                     </div>
+                    </div>  
+                                                       {% for comment in comments %}
 
-
-</div>
-<p>{% for comment in comments %}</p>
-
-
-   <div class="row">
-        <div class="col-3 d-flex align-items-end flex-column">
-             <div class="comment-author-pic">
-                 <a href="{% url 'profile' comment.author.id %}">
-                  <img
-                    src="{{comment.author.avatar.url}}"
-                    alt="Profile picture"
-                    class="round"
-
-                  /></a>
-             </div>
-         </div>
-         <div class="col-9" > 
-
-
-
-
-               
-                <p class="card-text">
-                      <small class="text-muted">
-                      	<a href="{% url 'profile' comment.author.id %}">{{comment.author}} 
-                      	</a>-      {{comment.date_create}}
-                      </small>
-
-                      <div class="posts border m-2 p-2 notification message is-primmary">
-          	               {{comment.body|safe }}
-                                             
-
-                         </div>  
-                           {% if comment.author == request.user.profile %}
-                        <a href="{% url 'delete_com' comment.id %}" class="button is-danger com">del</a> 
-                                            {% else %}
-                        <a href="#" class="button is-dark com">like</a> 
-                 </p>
-          
+                <div class="row">
+                    <div class="col-3 d-flex align-items-end flex-column">
+                      <div class="comment-author-pic">
+                        <a href="{% url 'profile' comment.author.id %}">
+                         <img
+                          src="{{comment.author.avatar.url}}"
+                           alt="Profile picture"
+                          class="round"/>
+                         </a>
+                       </div>
+                    </div>
+                    <div class="col-9" > 
+                      <p class="card-text">
+                       <small class="text-muted">
+                        <a href="{% url 'profile' comment.author.id %}">{{comment.author}} 
+                         </a>-      {{comment.date_create}}
+                          </small>
+                           <div class="posts border m-2 p-2 notification message is-primmary">
+                             {{comment.body|safe }}
+                           </div>  
+                             {% if comment.author == request.user.profile %}
+                          <a href="{% url 'delete_com' comment.id %}" class="button is-danger com">del</a> 
+                                              {% else %}
+                         <a href="#" class="button is-dark com">like</a> 
+                      </p>                    {% endif %}
+                    </div>
+                  </div>
+                                           <p>{% endfor%}</p>
 
 
 
 
 
+             <div class="row"> 
+              <div class="col-md-3">
+               </div>    
+                <div class="col-md-6">                            
+                        <form action="" method="POST" >
+                          {% csrf_token %} {{comm_form.media}} {{comm_form.as_p}}
+                          <p><button class="btn btn-success" type="submit">send</button></p>
+                        </form>
+                </div>
+               <div class="col-md-3">
+              </div>       
+            </div> 
 
-{% endif %}
-          </div>
-    </div>
 
 
 
 
-<p>{% endfor%}</p>
-<div class="editor-section">
-  <form action="" method="POST">
-    {% csrf_token %} {{comm_form.media}} {{comm_form.as_p}}
-    <p><button class="btn btn-success" type="submit">send</button></p>
-  </form>
-</div>
+
+
+
+
+
+
+
+
 
 <p>{% endblock %}</p>
 
 
-
-
-
-
-
-
-
-
-
-
-         

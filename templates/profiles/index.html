@@ -7,7 +7,7 @@
   <strong><h1>Персонал</h1></strong>
   <hr />
   <div class="card card-body">
-    <a class="btn btn-dark btn-sm btn-block" href="№"></a>
+    <a class="btn btn-success btn-sm btn-block" href="№"></a>
     <table class="table table-sm">
       <tr>
         <th></th>
@@ -18,14 +18,14 @@
       <tr>
         {% for user in users %}
         <td>
-          <a class="btn btn-sm btn-dark" href="{% url 'profile' user.id %}"
+          <a class="btn btn-sm btn-success" href="{% url 'profile' user.id %}"
             >открыть</a
           >
         </td>
 
         <td>{{user.user}}</td>
         <td>
-          <img src="{{user.avatar.url}}" class="img-fluid round" width="50px" />
+          <img src="{{user.avatar.url}}" class="img-fluid" width="50px" />
         </td>
       </tr>
 
