@@ -33,7 +33,7 @@ def delete_post(request, id):
     if request.method == 'POST':
         user=request.user
         delete_post.delete()
-        return redirect('profile',  pk = user.id)
+        return redirect('profile',  id = user.id)
     context = { 'delete_post':  delete_post}
     return render(request, 'posts/delete_post.html', context)    
 

@@ -6,7 +6,7 @@ from profiles.models import Profile
 
 class Article(models.Model):
     title = models.CharField(max_length=100, blank=True)
-    body = RichTextUploadingField(max_length=1000,verbose_name="post")
+    body = RichTextUploadingField(max_length=10000,verbose_name="post")
     author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name='author')
     image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True)
     date_create = models.DateTimeField(auto_now_add=True)

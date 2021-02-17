@@ -7,13 +7,14 @@
                     <div class="col-md-2">
                      </div>
                         <div class="col-md-8">
-                         <p class="card-text ">
-                            <strong class="postcom">{{comm_post.body|safe}}</strong> 
-                              <small class="text-muted">                     
-                              <a href="{% url 'profile' comm_post.author.id %}">   
+                          <small class="text-muted">                     
+                              <a href="{% url 'profile' comm_post.author.id %}" class="button is-info is-light">   
                                    {{comm_post.author}} - {{comm_post.date_create}} 
                               </a>
                               </small>
+                         <p class="card-text ">
+                            <strong class="postcom">{{comm_post.body|safe}}</strong> 
+                            <a class="button is-danger is-hovered" href="{% url 'delete_post' comm_post.id %}">Delete</a>  
                           </p>
                        </div> 
                       <div class="col-md-2">

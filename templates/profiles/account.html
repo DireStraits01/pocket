@@ -66,20 +66,25 @@
                      href="{% url 'delete_post' post.id %}">
                    </a>
               <article class="message is-dark">
+              
                 <div class="message-body">
                   {{ post.body|safe }}
                 </div>
 
-
+                   <div>
                    <a    
                     href="{% url 'comments' post.id %}"
                      class="button is-dark ">
                       comments:{{count_com}}
                   </a>   
+                   <a class="button is-danger is-hovered" href="{% url 'delete_post' post.id %}">Delete</a>
             
+                   </div>
+                 
+
                   
                </article> 
-                                       
+                      
               
                   {% endfor %}
                   
