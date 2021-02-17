@@ -5,19 +5,22 @@
 
 {% for post in posts %}
 
+<div class="row">
+ <div class="col-md-10">
+	<div class="card mb-3">
+	  <a href="{% url 'profile' user.id %}" >{{post.author}}</a>
+	  <div class="card-body">
+	    <p class="card-text">{{post.body|safe}}</p>
+	    <p class="card-text"><small class="text-muted">{{post.date_create|date:'Y-m-d'}}</small></p>
+	    <a class="button is-focused" href="{% url 'comments' post.id %}">открыть</a>
+	  </div>
+	</div>
+  </div>	
 
-<div class="card mb-3">
-  <a href="{% url 'profile' user.id %}" >{{post.author}}</a>
-  <div class="card-body">
-    <p class="card-text">{{post.body|safe}}</p>
-    <p class="card-text"><small class="text-muted">{{post.date_create|date:'Y-m-d'}}</small></p>
-    <a class="button is-focused" href="{% url 'comments' post.id %}">открыть</a>
+  <div class="col-md-2">
+		<iframe width="250" height="750" class="rssdog" src="https://www.rssdog.com/index.php?url=http%3A%2F%2Fwww.nasa.gov%2Frss%2Fdyn%2Fbreaking_news.rss&mode=html&showonly=&maxitems=0&showdescs=1&desctrim=0&descmax=0&tabwidth=100%25&excltitle=1&showdate=1&linktarget=_blank&bordercol=%23d4d0c8&headbgcol=%23999999&headtxtcol=%23ffffff&titlebgcol=%23f1eded&titletxtcol=%23000000&itembgcol=%23ffffff&
+		itemtxtcol=%23000000&ctl=0"></iframe>
   </div>
-</div>
-{% endfor %}
-
-
-<iframe width="250" height="750" class="rssdog" src="https://www.rssdog.com/index.php?url=http%3A%2F%2Fwww.nasa.gov%2Frss%2Fdyn%2Fbreaking_news.rss&mode=html&showonly=&maxitems=0&showdescs=1&desctrim=0&descmax=0&tabwidth=100%25&excltitle=1&showdate=1&linktarget=_blank&bordercol=%23d4d0c8&headbgcol=%23999999&headtxtcol=%23ffffff&titlebgcol=%23f1eded&titletxtcol=%23000000&itembgcol=%23ffffff&itemtxtcol=%23000000&ctl=0"></iframe>
-
-
+ </div>	
+  {% endfor %}
 {% endblock %}
