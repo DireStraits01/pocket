@@ -12,7 +12,7 @@
 	  <div class="card-body">
 	    <p class="card-text">{{post.body|safe}}</p>
 	    <p class="card-text"><small class="text-muted">{{post.date_create|date:'Y-m-d'}}</small></p>
-	    <a class="button is-focused" href="{% url 'comments' post.id %}">открыть</a>
+	    <a class="button is-focused" href="{% url 'comments' post.id %}">read</a>
 	  </div>
 	</div>
   </div>	
