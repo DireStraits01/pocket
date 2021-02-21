@@ -9,6 +9,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+     <link
+      rel="shortcut icon"
+      href="{% static '/logo/ico.ico' %}"
+      type="image/x-icon"
+    />
+
     <link
       rel="stylesheet"
       type="text/css"
@@ -37,16 +43,67 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.2.0/mdb.min.css"
       rel="stylesheet"
     />
-    {% block extrahead %} {% endblock %}
+
+        {% block extrahead %} {% endblock %}
+   
   </head>
   <body>
-    <header>{% include 'base/navbar.html'%}</header>
-    {% block postman_menu %} {% endblock %}
-    <section class="section">{% block content %} {% endblock %}</section>
+    <header>{% include 'base/navbar.html' %}</header>
+  
+    
+    
+    <div class="background-color">
+     <div class="container-fluid">
+      <div class="row">
+        <div class="col md-2 mt-3">
+                        {% if user.is_authenticated %}
+             <ul align="left" class="shrift">
+              <li><i class="far fa-address-card"></i><a class="shrift" href="{% url 'profile' user.id %}">
+               My Profile
+              </a><li>
+            {% else %}
+              <li><i  class="far fa-address-card"></i><a href="{% url 'login'%}">
+               My Profile
+              </a></li>
+              {% endif%}
+              <li> <i class="fas fa-bullhorn"></i><a  class="blockquote"href="{% url 'list_posts' %}">
+               News
+             </a></li>
+              <li><i class="far fa-comment"></i><a href="{% url 'postman:inbox' %}"> Messeges</a></li>
+              <li><i class="fas fa-user-friends"></i><a href=""> Friends</a></li>
+              <li><i class="far fa-image"></i><a href=""> Album</a></li>
+              <li><i class="fas fa-cog"></i><a href=""> Settings</a></li>
+            </ul>
+          </div>
 
-    <script
-      type="text/javascript"
-      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.2.0/mdb.min.js"
-    ></script>
+        <div class="col-md-10 mt-3"> 
+                  {% block postman_menu %} {% endblock %} 
+          {% block content %}   {% endblock %}
+         
+        </div>
+
+        
+                 
+
+      </div>
+         <div class="row">
+           <div class="col-md-12">
+                   
+           </div>
+
+         </div>
+
+      </div>
+
+
+
+    </div>
+     
+           <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.2.0/mdb.min.js">
+          </script>
+
+          <script type="text/javascript" src='{% static "js/script1.js" %}'></script>
   </body>
 </html>

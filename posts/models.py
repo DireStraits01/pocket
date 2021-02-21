@@ -11,11 +11,12 @@ class Article(models.Model):
     image = models.ImageField(upload_to='images/%Y/%m/%d', blank=True)
     date_create = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True)
+   
 
     def __str__(self):
         return f'{self.date_create}'
   
-  
+ 
 
 class Comments(models.Model):
       body = RichTextUploadingField(max_length=150, verbose_name='your comment:')

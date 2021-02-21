@@ -31,7 +31,7 @@
   border-radius: 50%; /* Радиус скругления */
   border: 3px solid white; /* Параметры рамки */
   box-shadow: 0 0 7px #666; /* Параметры тени */
-  width: 100px;
+ 
 }
 
 .center {
@@ -53,3 +53,32 @@
   line-height: 1px;
 }
 
+}
+.solid {
+  border-bottom: 10px solid black;
+}
+
+.background-color {
+  background-color: white;
+}
+
+.backGroundWhite{
+  background-color: white;
+}
+
+.white-border{
+  border: 8px solid white; /* Параметры рамки */
+}
+
+.white-border-bottom{
+  border-bottom: 8px solid white;
+}
+
+.navbar{
+    height: 56px !important;
+}
+
+.shrift {
+ color: green;
+
+}

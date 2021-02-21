@@ -46,3 +46,5 @@ def delete_com(request, id):
         return redirect('comments', id = post.id )
     context = { 'delete_com':  delete_com}
     return render(request, 'posts/delete_com.html', context)       
+
+

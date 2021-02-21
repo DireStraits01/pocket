@@ -1,73 +1,92 @@
-{% extends 'base/base.html' %} {%block content %}
 
-<div class="container">
-  <div class="row mt-5">
-    <div class="col-md-3">
-      <div class="card bg-image hover-overlay ripple ">
+    
+
+{% extends 'base/base.html' %} 
+
+
+{%block content %}
+
+
+
+
+
+<div class="container ">
+  <div class="row">
+    <div class="col-md-3 mt-3">
+      <div class="card bg-image hover-overlay ripple white-border ">
        <!--****************Profile request ******************-->
         {% if profile.user == request.user %}
-          <img src="{{user.profile.avatar.url}}" class="img-fluid" width="350px" />
+          <img src="{{user.profile.avatar.url}}" class="img-fluid white-border" width="350px" />
             <a href="{% url 'change_avatar' profile.id %}"
-              class="btn btn-sm btn-succes card-body container "
+              class="btn btn-sm btn-succes card-body container white-border "
               type="submit"/>
               Change avatar</a>
-        <div class="card-body center">
-          <h5 class="card-title">{{user.username}}</h5>
-          <p class="card-text">
-            <p>registered {{user.profile.created|date:'Y-m-d'}}</p>
-            <p class="card-text">about: {{user.profile.about}}</p>
-          </p >
-          <a  href="#" class="btn btn-primary btn-sm "> Friends </a>
-          <a href="{% url 'postman:inbox' %}" class="btn btn-info btn-sm "
-            >messages</a>
-        </div>
+           
+        
+         <!-- <a href="{% url 'postman:inbox' %}" class="btn btn-info btn-sm mt-3 ">-->
+     
 
           <!--****************Profile  not request ******************-->
                     {% else %}
-        <img src="{{profile.avatar.url}}" class="img-fluid" width="350px" />
-
-        <div class="card-body center">
-          <h5 class="card-title">{{profile.user}}</h5>
-          <p class="card-text">
-             <p>registered {{user.profile.created|date:'Y-m-d'}}</p>
-             <p class="card-text">about: {{user.profile.about}}</p>
-          </p>
-          <a href="#" class="btn btn-primary btn-sm">add to friend</a>
+        <img src="{{profile.avatar.url}}" class="img-fluid white-border" width="350px" />
+      
+           <!-- <a href="{% url 'postman:write' profile.user %}"  class="btn btn-info btn-sm mt-3"> -->
           
-          <a href="{% url 'postman:write' profile.user %}"  class="btn btn-info btn-sm mt-1">send a message</a>
-           
-        </div>
-         {% endif %}
-      </div>
+
+            {% endif %}
+        </div> 
     </div>
+ 
     <!--    content side         -->
 
-    <div class="col-md-9">
-      <div class="row">
-        <div class="col-md-12">
+    <div class="col-md-8 mt-3">
+  
           <div class="feed-section">
-            <div class="row">
+       
                
             <!--****************Posts     request user  ******************-->
                    {% if profile.user == request.user %}
-                              <h3>My Posts</h3>
-                                  {% for post in posts %}
-                                 
+        
+                        <div class="card ">
+              <div class="card-body">
+                <h5 class="card-title solid">{{user.username}}</h5>
+                
+                <p class="card-text">Date birth: </p>
+                <p class="card-text">City: </p>
+                 <p class="card-text">Registered: {{user.profile.created|date:'Y-m-d'}}</p>
+                 <p class="card-text">about me: {{user.profile.about}}</p>
+                  <p class='solid'></p>
+              </div>
+            </div>                      
+                                  
+             <div class="editor-section backGroundWhite mt-3 shodow">
+                <form action="" method="POST">
+                  {% csrf_token %} {{post_form.media }} {{post_form.as_p}}
+                         
+                  <p>
+                    <button class="btn btn-success" type="submit">
+                      send
+                    </button>
+                  </p>
+                 </form>
+             </div>
+
+                           {% for post in posts %}
+
                   
-             <p class="card-text">
+            
+
+
+               
+              <article class="message is-dark mt-3 white-border-bottom">
+
+                 <p class="card-text">
                 <small class="text-muted">                     
                 {{post.author}} - {{post.date_create}} 
                 </small>
               </p>
-
-
-                   <a 
-                     class="deleted is-medium" aria-label="delete"  
-                     href="{% url 'delete_post' post.id %}">
-                   </a>
-              <article class="message is-dark">
               
-                <div class="message-body">
+                <div class="message-body post_height">
                   {{ post.body|safe }}
                 </div>
 
@@ -93,7 +112,19 @@
                    <!--****************Posts    not request user  ******************-->
                              {% else %}
 
-                                 <h3>Posts</h3>
+                        <div class="card ">
+                  <div class="card-body">
+                    <h5 class="card-title">{{profile.user}}</h5>
+                    <p class='solid'></p>
+                    <p class="card-text">Date birth: </p>
+                    <p class="card-text">City: </p>
+                     <p class="card-text">Registered: {{user.profile.created|date:'Y-m-d'}}</p>
+                     <p class="card-text">about me: {{user.profile.about}}</p>
+                      <p class='solid'></p>
+                  </div>
+                </div>                               
+
+                                 
                   {% for post in posts_other %}
                       
 
@@ -115,27 +146,13 @@
                </article>
                   {% endfor %}{% endif %}
                    <!--****************END Posts      ******************-->
-            
             </div>  
-          </div>
-
-             <!--****************Form request user  ******************-->
-          <p>{% if profile.user == request.user %}</p>
-          <div class="editor-section">
-            <form action="" method="POST">
-              {% csrf_token %} {{post_form.media}} {{post_form.as_p}}
-              <p><button class="btn btn-success" type="submit">send</button></p>
-            </form>
-          </div>
-           <!--****************Form not request user  ******************-->
-          {% else%}
-          <p class="no_publication">...</p>
-          {% endif %}
-           <!--****************END FORM  ******************-->
-        </div>
       </div>
-    </div>
+    <div class="col-md-1"></div>
   </div>
 </div>
+
+
+
 
 {% endblock %}
